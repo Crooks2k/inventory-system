@@ -1,0 +1,25 @@
+.navItem{
+    color: #5D6679;
+}
+
+.active{
+    color: #1570EF;
+    font-weight: 500;
+}
+.activeLine::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -5px;
+    height: 100%;
+    width: 3px;
+    background-color: #1570EF;
+    opacity: 0; 
+    transition: opacity 0.2s;
+}
+
+.m-butt{
+    position: absolute;
+    top: 5px;
+    left: 5px;
+}

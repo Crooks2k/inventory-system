@@ -5,6 +5,7 @@ import Home from '../pages/Home/Home'
 import NotFound from '../core/layout/NotFound/NotFound'
 import NewProduct from '../pages/NewProduct/NewProduct'
 import Recovery from '../pages/Password-recovery/Recovery'
+import Employees from '../pages/Employees/Employees'
 
 const RouterOutlet = () => {
   return (
@@ -14,6 +15,7 @@ const RouterOutlet = () => {
             <Route path='/dashboard' element={<Home/>}/>
             <Route path="/newProduct" element={<NewProduct/>}/>
             <Route path="/recovery" element={<Recovery/>}/>
+            <Route path="/employees" element={<Employees/>}/>
             <Route path="*" element={<NotFound/>}/>
             {/* Queda faltante desarrollar la logica de protección de rutas usando una instancia de un servicio para validar
              la sesion usando un Token */}
