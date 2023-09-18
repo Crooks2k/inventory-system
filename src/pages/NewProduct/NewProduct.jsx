@@ -4,6 +4,7 @@ import AsideMenu from '../../core/layout/Aside/AsideMenu'
 const NewProduct = () => {
   return (
     <AsideMenu/>
+    
   )
 }
 
