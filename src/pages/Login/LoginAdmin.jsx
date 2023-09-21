@@ -43,7 +43,7 @@ export default function LoginAdmin() {
     <div>
       <img src={logo} className="logo" alt="" />
       <form onSubmit={handleSubmit}>
-        <MDBContainer className="p-3 my-5 d-flex flex-column w-50 rounded-4 align-items-center container-style">
+        <MDBContainer className="p-3 my-5 d-flex flex-column w-50 rounded-4 text-bg-light align-items-center container-style">
           <h2 className="title-login">Enter the panel</h2>
           <h3>Admin</h3>
           <MDBInput
