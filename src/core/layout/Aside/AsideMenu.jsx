@@ -22,7 +22,7 @@ const AsideMenu = () => {
     <>
       <MediaQuery minWidth={950}>
         <div
-          className="d-flex flex-column p-3 min-vh-100 text-bg-light"
+          className="d-flex flex-column p-3 min-vh-100 text-bg-light shadow"
           style={{ width: "260px" }}
         >
           <a

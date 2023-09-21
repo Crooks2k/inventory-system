@@ -1,0 +1,30 @@
+.inv-stats-main{
+   margin-top: -5.5rem;
+}
+.inv-stats, .home-bar-m, .product-list{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.title{
+    color: var(--title)
+}
+.inv-stats p:nth-child(2){
+    color: var(--focus_subtitle);
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: -0.2rem;
+}
+.inv-stats p:nth-child(3){
+    font-weight: 400;
+}
+.search::placeholder{
+    color: var(--title);
+    font-weight: 600;
+}
+.search{
+    border: none;
+    font-size: 18px;
+}
