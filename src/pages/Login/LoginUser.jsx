@@ -66,7 +66,7 @@ export default function LoginUser() {
    <div>
     <img src={logo} className="logo" alt="" />
      <form  onSubmit={handleSubmit}>
-        <MDBContainer className="container-form p-3 my-5 d-flex flex-column w-50 rounded-4 align-items-center">
+        <MDBContainer className="p-3 my-5 d-flex flex-column w-50 rounded-4 align-items-center container-style">
     <h2 className="title-login">Enter the panel</h2>
     <h3>Employees</h3>
 <MDBInput wrapperClass='mb-4 w-75 ' placeholder="Email" id='form1' type='email'     value={email}
@@ -87,5 +87,6 @@ export default function LoginUser() {
     </form>
 
    </div>
+
   );
 }
