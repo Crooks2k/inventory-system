@@ -11,6 +11,7 @@ import MediaQuery from "react-responsive";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { AiOutlineMenu } from "react-icons/ai";
 import { useState } from "react";
+import { Logout } from "../../service/AuthService";
 
 const AsideMenu = () => {
   const [show, setShow] = useState(false);
@@ -18,11 +19,12 @@ const AsideMenu = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const role = localStorage.getItem("role");
   return (
     <>
       <MediaQuery minWidth={950}>
         <div
-          className="d-flex flex-column p-3 min-vh-100 text-bg-light"
+          className="d-flex flex-column p-3 min-vh-100 text-bg-light shadow"
           style={{ width: "260px" }}
         >
           <a
@@ -74,29 +76,33 @@ const AsideMenu = () => {
                 </span>
               </Nav.Link>
             </NavItem>
-            <NavItem className="mt-3">
-              <Nav.Link to="/employees" as={Link}>
-                <VscAccount
-                  className={`${
-                    useLocation().pathname === "/employees"
-                      ? "active activeLine pb-1 me-1 fs-5"
-                      : "navItem pb-1 me-1 fs-5"
-                  }`}
-                />
-                <span
-                  className={`${
-                    useLocation().pathname === "/employees"
-                      ? "active"
-                      : "navItem"
-                  }`}
-                >
-                  Employees
-                </span>
-              </Nav.Link>
-            </NavItem>
+            {role == "admin" ? (
+              <NavItem className="mt-3">
+                <Nav.Link to="/employees" as={Link}>
+                  <VscAccount
+                    className={`${
+                      useLocation().pathname === "/employees"
+                        ? "active activeLine pb-1 me-1 fs-5"
+                        : "navItem pb-1 me-1 fs-5"
+                    }`}
+                  />
+                  <span
+                    className={`${
+                      useLocation().pathname === "/employees"
+                        ? "active"
+                        : "navItem"
+                    }`}
+                  >
+                    Employees
+                  </span>
+                </Nav.Link>
+              </NavItem>
+            ) : (
+              ""
+            )}
           </Nav>
           <hr />
-          <NavItem className="mx-auto">
+          <NavItem className="mx-auto" onClick={() => Logout()}>
             <Nav.Link to="/" as={Link}>
               <MdLogout className="navItem mb-1" />{" "}
               <span className="navItem">Logout</span>
@@ -143,20 +149,24 @@ const AsideMenu = () => {
               </Nav.Link>
             </NavItem>
             <hr />
-            <NavItem className="mt-2">
-              <Nav.Link to="/employees" as={Link}>
-                <VscAccount
-                  className={`${
-                    useLocation().pathname === "/employees"
-                      ? "active activeLine fs-4"
-                      : "navItem fs-4"
-                  }`}
-                />
-              </Nav.Link>
-            </NavItem>
+            {role == "admin" ? (
+              <NavItem className="mt-2">
+                <Nav.Link to="/employees" as={Link}>
+                  <VscAccount
+                    className={`${
+                      useLocation().pathname === "/employees"
+                        ? "active activeLine fs-4"
+                        : "navItem fs-4"
+                    }`}
+                  />
+                </Nav.Link>
+              </NavItem>
+            ) : (
+              ""
+            )}
           </Nav>
           <hr />
-          <NavItem className="mx-auto mb-3">
+          <NavItem className="mx-auto mb-3" onClick={() => Logout()}>
             <Nav.Link to="/" as={Link}>
               <MdLogout className="navItem mb-1 fs-4" />
             </Nav.Link>
@@ -217,29 +227,33 @@ const AsideMenu = () => {
                   </span>
                 </Nav.Link>
               </NavItem>
-              <NavItem className="mt-3">
-                <Nav.Link to="/employees" as={Link}>
-                  <VscAccount
-                    className={`${
-                      useLocation().pathname === "/employees"
-                        ? "active activeLine pb-1 me-1 fs-5"
-                        : "navItem pb-1 me-1 fs-5"
-                    }`}
-                  />
-                  <span
-                    className={`${
-                      useLocation().pathname === "/employees"
-                        ? "active"
-                        : "navItem"
-                    }`}
-                  >
-                    Employees
-                  </span>
-                </Nav.Link>
-              </NavItem>
+              {role == "admin" ? (
+                <NavItem className="mt-3">
+                  <Nav.Link to="/employees" as={Link}>
+                    <VscAccount
+                      className={`${
+                        useLocation().pathname === "/employees"
+                          ? "active activeLine pb-1 me-1 fs-5"
+                          : "navItem pb-1 me-1 fs-5"
+                      }`}
+                    />
+                    <span
+                      className={`${
+                        useLocation().pathname === "/employees"
+                          ? "active"
+                          : "navItem"
+                      }`}
+                    >
+                      Employees
+                    </span>
+                  </Nav.Link>
+                </NavItem>
+              ) : (
+                ""
+              )}
             </Nav>
             <hr />
-            <NavItem className="mx-auto">
+            <NavItem className="mx-auto" onClick={() => Logout()}>
               <Nav.Link to="/" as={Link}>
                 <MdLogout className="navItem mb-1" />{" "}
                 <span className="navItem">Logout</span>

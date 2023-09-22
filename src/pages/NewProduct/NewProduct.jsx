@@ -10,6 +10,7 @@ function NewProduct() {
     imgProduct: "",
     measures: 0,
     description: "",
+    description: "",
     price: 0,
     price2: 0,
     price3: 0,
@@ -74,6 +75,7 @@ function NewProduct() {
 
     if (!authToken) {
       console.error("No se encontró el token de autenticación");
+      console.error("No se encontró el token de autenticación");
       return;
     }
 
@@ -94,6 +96,7 @@ function NewProduct() {
       // Restablecer el estado del formulario a "initialFormData"
       setFormData(initialFormData);
     } catch (error) {
+      console.error("Error al registrar el producto:", error);
       console.error("Error al registrar el producto:", error);
     }
   };
