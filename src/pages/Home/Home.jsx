@@ -5,13 +5,39 @@ import MediaQuery from "react-responsive";
 import Product from "./Product/Product";
 import { AllProducts } from "../../core/service/HomeService";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Home = () => {
   const [allProducts, setallProducts] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setallProducts(AllProducts('/api/products/'))
-  }, []);
+    const fetchData = async () => {
+      const authToken = localStorage.getItem("token");
+      if (!authToken) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'There was an error validating your session, please log in again!',
+        })
+        setTimeout(() => {
+          navigate("/")
+        }, 5000)
+      }
+  
+      try {
+        const response = await AllProducts('api/products/', authToken)
+        const productData = response.data;
+        setallProducts(productData);
+      } catch (error) {
+        console.error("Error al cargar los productos", error)
+      }
+    }
+
+    fetchData()
+  }, [])
+  
 
   console.log(allProducts)
 
