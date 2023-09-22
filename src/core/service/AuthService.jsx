@@ -1,5 +1,15 @@
-export const SignIn = () => {
-    console.log("hey example")
-    //Construir aqui la logica de validaciónes del login, recopilación de data, filtrado y envio al backend.
-    //hacerlo de la misma manera en cada servicio, si se quiere hacer otra funcion se debe hacer otro debajo de esta linea.   
+import axios from "axios"
+
+export const SignIn = (email, password) => {
+    return axios.post(
+        "https://cugusacompany.onrender.com/api/superAdmin/signin",
+        {
+          email,
+          password,
+        }
+      );
+}
+
+export const Logout = () => {
+    localStorage.removeItem("token")
 }
