@@ -40,39 +40,6 @@ const Home = () => {
   
 
   console.log(allProducts)
-
-  const simulatedData = [
-    {
-      img: "asd",
-      name: "ddd",
-      quantity: "35"
-    },
-    {
-      img: "asd",
-      name: "ddd",
-      quantity: "35"
-    },
-    {
-      img: "asd",
-      name: "ddd",
-      quantity: "35"
-    },
-    {
-      img: "asd",
-      name: "ddd",
-      quantity: "35"
-    },
-    {
-      img: "asd",
-      name: "ddd",
-      quantity: "35"
-    },
-    {
-      img: "asd",
-      name: "ddd",
-      quantity: "35"
-    },
-  ]
   return (
     <div className="d-flex">
       <aside>
@@ -121,7 +88,7 @@ const Home = () => {
           </MediaQuery>
 
           <MediaQuery minWidth={768} maxWidth={1199}>
-            <div className="d-flex justify-content-center flex-column w-75 mt-1 mx-auto text-bg-light shadow-sm pt-3 pb-2">
+            <div className="d-flex justify-content-center flex-column w-75 mt-3 mx-auto text-bg-light shadow-sm pt-3 pb-2">
               <h3 className="title text-center mb-3">Inventory Summary</h3>
               <div className="d-flex mx-auto gap-5">
                 <div className="inv-stats">
@@ -158,11 +125,13 @@ const Home = () => {
         </MediaQuery>
 
         {/* Dashboard Body */}
-        <div className="product-list gap-4 mt-md-3 mt-xl-5 mx-xl-5 mx-0 mt-1 text-bg-light">
+        <div className="product-list gap-4 mt-md-3 mt-xl-4 mx-xl-5 mx-0 mt-1">
           {
-            simulatedData.map((item, index) =>{
+            allProducts.map((product) =>{
               return(
-                <Product item={item} key={index}/>
+                <div className="">
+                    <Product product={product} key={product?._id}/>
+                </div>
               )
             })
           }
