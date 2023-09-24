@@ -28,3 +28,8 @@
     border: none;
     font-size: 18px;
 }
+@media(max-width: 360px){
+    .movil-text{
+        font-size: 15px;
+    }
+}

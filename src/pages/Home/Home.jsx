@@ -7,6 +7,9 @@ import { AllProducts } from "../../core/service/HomeService";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import onTheWay from "../../assets/images/OnTheWay.png";
+import Quantity from "../../assets/images/Quantity.png";
+import Skeleton from "../../core/common/Skeleton/Skeleton";
 
 const Home = () => {
   const [allProducts, setallProducts] = useState([]);
@@ -14,37 +17,36 @@ const Home = () => {
 
   const [AvailableProducts, setAvailableProducts] = useState(0);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const authToken = localStorage.getItem("token");
-      if (!authToken) {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'There was an error validating your session, please log in again!',
-        })
-        setTimeout(() => {
-          navigate("/")
-        }, 5000)
-      }
-  
-      try {
-        const response = await AllProducts('api/products/', authToken)
-        const productData = response.data;
-        setallProducts(productData);
-
-        const activateProducts = allProducts.filter((product) => {
-          return product?.availability == true
-        })
-        setAvailableProducts(activateProducts)
-      } catch (error) {
-        console.error("Error al cargar los productos", error)
-      }
+  const fetchData = async () => {
+    const authToken = localStorage.getItem("token");
+    if (!authToken) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "There was an error validating your session, please log in again!",
+      });
+      setTimeout(() => {
+        navigate("/");
+      }, 5000);
     }
 
-    fetchData()
-  }, [])
-  
+    try {
+      const response = await AllProducts("api/products/", authToken);
+      const productData = response.data;
+      setallProducts(productData);
+
+      const activateProducts = allProducts.filter((product) => {
+        return product.availability == true;
+      });
+      setAvailableProducts(activateProducts);
+    } catch (error) {
+      console.error("Error al cargar los productos", error);
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <div className="d-flex">
       <aside>
@@ -52,12 +54,16 @@ const Home = () => {
       </aside>
       <main className="w-100">
         <MediaQuery minWidth={320}>
-        {/* Navs */}
+          {/* Navs */}
           <>
             <MediaQuery minWidth={768}>
               <div className="home-bar py-4 px-4 w-100 text-bg-light shadow-sm d-flex justify-content-between">
                 <div>
-                  <input type="search" placeholder="Search Product..." className="search shadow-sm px-2 py-1" />
+                  <input
+                    type="search"
+                    placeholder="Search Product..."
+                    className="search shadow-sm px-2 py-1"
+                  />
                 </div>
                 <div>
                   <p>Filter Icon</p>
@@ -67,7 +73,11 @@ const Home = () => {
 
             <MediaQuery minWidth={320} maxWidth={767}>
               <div className="home-bar-m py-3 w-100 text-bg-light shadow-sm ms-2">
-                  <input type="search" placeholder="Search Product..." className="search shadow-sm px-3 py-2" />
+                <input
+                  type="search"
+                  placeholder="Search Product..."
+                  className="search shadow-sm px-3 py-2"
+                />
               </div>
             </MediaQuery>
           </>
@@ -79,14 +89,38 @@ const Home = () => {
               <h3 className="title text-center mb-3">Inventory Summary</h3>
               <div className="d-flex mx-auto gap-5">
                 <div className="inv-stats">
-                  <p>icon</p>
-                  <p>{allProducts.length}</p>
-                  <p>Quantity in Inventory</p>
+                  <img
+                    src={Quantity}
+                    style={{ width: "50px", height: "50px" }}
+                    className="mb-1"
+                  />
+                  {!allProducts ? (
+                    <Skeleton
+                      width={"50px"}
+                      height={"10px"}
+                      marginTop={"7px"}
+                    />
+                  ) : (
+                    <p>{allProducts.length}</p>
+                  )}
+                  <p className="movil-text">Quantity in Inventory</p>
                 </div>
                 <div className="inv-stats">
-                  <p>icon</p>
-                  <p>{AvailableProducts.length}</p>
-                  <p>Available products</p>
+                  <img
+                    src={onTheWay}
+                    style={{ width: "50px", height: "50px" }}
+                    className="mb-1"
+                  />
+                  {!AvailableProducts ? (
+                    <Skeleton
+                      width={"50px"}
+                      height={"10px"}
+                      marginTop={"7px"}
+                    />
+                  ) : (
+                    <p>{AvailableProducts.length}</p>
+                  )}
+                  <p className="movil-text">Available products</p>
                 </div>
               </div>
             </div>
@@ -97,13 +131,37 @@ const Home = () => {
               <h3 className="title text-center mb-3">Inventory Summary</h3>
               <div className="d-flex mx-auto gap-5">
                 <div className="inv-stats">
-                  <p>icon</p>
-                  <p>{allProducts.length}</p>
+                  <img
+                    src={Quantity}
+                    style={{ width: "50px", height: "50px" }}
+                    className="mb-1"
+                  />
+                  {!allProducts ? (
+                    <Skeleton
+                      width={"50px"}
+                      height={"10px"}
+                      marginTop={"7px"}
+                    />
+                  ) : (
+                    <p>{allProducts.length}</p>
+                  )}
                   <p>Quantity in Inventory</p>
                 </div>
                 <div className="inv-stats">
-                  <p>icon</p>
-                  <p>{AvailableProducts.length}</p>
+                  <img
+                    src={onTheWay}
+                    style={{ width: "50px", height: "50px" }}
+                    className="mb-1"
+                  />
+                  {!AvailableProducts ? (
+                    <Skeleton
+                      width={"50px"}
+                      height={"10px"}
+                      marginTop={"7px"}
+                    />
+                  ) : (
+                    <p>{AvailableProducts.length}</p>
+                  )}
                   <p>Available products</p>
                 </div>
               </div>
@@ -115,13 +173,37 @@ const Home = () => {
               <h3 className="title text-center mb-3">Inventory Summary</h3>
               <div className="d-flex mx-auto gap-5">
                 <div className="inv-stats">
-                  <p>icon</p>
-                  <p>868</p>
+                  <img
+                    src={Quantity}
+                    style={{ width: "50px", height: "50px" }}
+                    className="mb-1"
+                  />
+                  {allProducts.length == 0 ? (
+                    <Skeleton
+                      width={"50px"}
+                      height={"10px"}
+                      marginTop={"7px"}
+                    />
+                  ) : (
+                    <p>{allProducts.length}</p>
+                  )}
                   <p>Quantity in Inventory</p>
                 </div>
                 <div className="inv-stats">
-                  <p>icon</p>
-                  <p>200</p>
+                  <img
+                    src={onTheWay}
+                    style={{ width: "50px", height: "50px" }}
+                    className="mb-1"
+                  />
+                  {!AvailableProducts ? (
+                    <Skeleton
+                      width={"50px"}
+                      height={"10px"}
+                      marginTop={"7px"}
+                    />
+                  ) : (
+                    <p>{AvailableProducts.length}</p>
+                  )}
                   <p>Available products</p>
                 </div>
               </div>
@@ -131,15 +213,13 @@ const Home = () => {
 
         {/* Dashboard Body */}
         <div className="product-list gap-4 mt-md-3 mt-xl-4 mx-xl-5 mx-0 px-0 mt-1">
-          {
-            allProducts.map((product) =>{
-              return(
-                <div className="">
-                    <Product product={product} key={product?._id}/>
-                </div>
-              )
-            })
-          }
+          {allProducts.map((product) => {
+            return (
+              <div className="" key={product?._id}>
+                <Product product={product} fetchData={fetchData}/>
+              </div>
+            );
+          })}
         </div>
       </main>
     </div>
