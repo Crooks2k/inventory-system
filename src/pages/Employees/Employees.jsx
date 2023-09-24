@@ -16,10 +16,19 @@ const Employees = () => {
     })
     setTimeout(() => {
       navigate("/dashboard")
-    }, 5000);
+    }, 500);
   }
   return (
-    <AsideMenu/>
+   <>
+    <div className="d-flex">
+      <aside>
+        <AsideMenu />
+      </aside>
+      <main className="w-100">
+        
+      </main>
+    </div>
+   </>
   )
 }
 

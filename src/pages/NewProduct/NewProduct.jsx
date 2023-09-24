@@ -10,7 +10,6 @@ function NewProduct() {
     imgProduct: "",
     measures: 0,
     description: "",
-    description: "",
     price: 0,
     price2: 0,
     price3: 0,
@@ -150,8 +149,8 @@ function NewProduct() {
                     required
                   >
                     <option selected>Open this select menu</option>
-                    <option value="1">2</option>
-                    <option value="2">3</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
                   </select>
                 </div>
 
