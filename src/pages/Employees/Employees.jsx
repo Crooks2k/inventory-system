@@ -16,7 +16,7 @@ const Employees = () => {
     })
     setTimeout(() => {
       navigate("/dashboard")
-    }, 5000);
+    }, 500);
   }
   return (
     <AsideMenu/>

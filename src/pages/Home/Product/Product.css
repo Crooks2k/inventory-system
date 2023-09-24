@@ -4,3 +4,41 @@
 .product-title{
     margin-top: -1rem;
 }
+.tablet-card{
+    padding: 0 4.2rem;
+}
+@media(min-width: 769px){
+    .tablet-acordion{
+        width: 280px;
+    }
+}
+.card-images{
+    width: 300px!important;
+    height: 250px!important;
+    margin-left: -3.6rem;
+}
+@media(min-width: 1024px){
+    .tablet-acordion{
+        width: 360px;
+    }
+}
+@media(min-width: 1200px){
+    .tablet-acordion{
+        width: 400px;
+    }
+    .card-images{
+        width: 380px!important;
+        height: 270px!important;
+        margin-left: -3.6rem;
+    }
+}
+@media(min-width: 1500px){
+    .tablet-acordion{
+        width: 500px;
+    }
+    .card-images{
+        width: 480px!important;
+        height: 320px!important;
+        margin-left: -3.6rem;
+    }
+}
