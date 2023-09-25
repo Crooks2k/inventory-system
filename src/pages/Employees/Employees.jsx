@@ -7,6 +7,7 @@ import AsideMenu from "../../core/layout/Aside/AsideMenu";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import AddEmployeeModal from "./AddEmployeeModal";
+import {MdDelete} from "react-icons/md";
 
 const Employees = () => {
   const navigate = useNavigate();
@@ -77,33 +78,60 @@ const Employees = () => {
       return;
     }
   
-    // Si el usuario es administrador, realizar la petición de eliminación
-    axios
-      .delete(`https://cugusacompany.onrender.com/api/users/${id}`, {
-        headers: {
-          "x-access-token": token,
-        },
-      })
-      .then((response) => {
-        setEmployees((prevEmployees) =>
-          prevEmployees.filter((employee) => employee._id !== id)
-        );
+   
+    const currentUserId = localStorage.getItem("userId");
   
-        Swal.fire({
-          icon: "success",
-          title: "Successfully deleted user",
-          text: "Successfully deleted user.",
-        });
-      })
-      .catch((error) => {
-        console.error("Error al eliminar el usuario:", error);
-  
-        Swal.fire({
-          icon: "error",
-          title: "Error deleting user",
-          text: "An error occurred while trying to delete the user.",
-        });
+
+    if (id === currentUserId) {
+      Swal.fire({
+        icon: "error",
+        title: "Access denied",
+        text: "You cannot delete your own user account.",
       });
+      return;
+    }
+  
+
+    Swal.fire({
+      title: "Delete Employee",
+      text: "Are you sure you want to delete this employee?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+   
+        axios
+          .delete(`https://cugusacompany.onrender.com/api/users/${id}`, {
+            headers: {
+              "x-access-token": token,
+            },
+          })
+          .then((response) => {
+            setEmployees((prevEmployees) =>
+              prevEmployees.filter((employee) => employee._id !== id)
+            );
+  
+            Swal.fire({
+              icon: "success",
+              title: "Successfully deleted user",
+              text: "Successfully deleted user.",
+            });
+          })
+          .catch((error) => {
+            console.error("Error al eliminar el usuario:", error);
+  
+            Swal.fire({
+              icon: "error",
+              title: "Error deleting user",
+              text: "An error occurred while trying to delete the user.",
+            });
+          });
+      }
+    });
+  
 
   };
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -122,7 +150,10 @@ const Employees = () => {
           <div>
             {role === "admin" ? (
               <>
-                <h2>Lista de Empleados</h2>
+              <div className="title-employees">
+              <h2 className="h2-employees">Lista de Empleados</h2>
+              </div>
+                
                 <div className="d-flex justify-content-end mb-3">
   <button
     className="btn btn-sm btn-primary font-weight-bold btn-employee"
@@ -156,7 +187,7 @@ const Employees = () => {
                           <button
                             onClick={() => handleDeleteUser(employee._id)}
                           >
-                            Eliminar
+                            <MdDelete className="trash-icon" />
                           </button>
                         </td>
                       </tr>
