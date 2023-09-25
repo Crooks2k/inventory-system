@@ -3,7 +3,7 @@ import "./Home.css";
 import AsideMenu from "../../core/layout/Aside/AsideMenu";
 import MediaQuery from "react-responsive";
 import Product from "./Product/Product";
-import { AllProducts } from "../../core/service/HomeService";
+import { AllProducts, GetCategories } from "../../core/service/HomeService";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -12,12 +12,28 @@ import Quantity from "../../assets/images/Quantity.png";
 import Skeleton from "../../core/common/Skeleton/Skeleton";
 import { AiOutlineSearch } from "react-icons/ai";
 import { VscListFilter } from "react-icons/vsc";
+import Form from "react-bootstrap/Form";
 import Dropdown from "react-bootstrap/Dropdown";
+import ReactPaginate from "react-paginate";
 
 const Home = () => {
   const [allProducts, setallProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+
+  const [categories, setCategories] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState([]);
+
+  const handleCategorySelect = (categoryId) => {
+    if (selectedCategories.includes(categoryId)) {
+      setSelectedCategories((prevSelected) =>
+        prevSelected.filter((id) => id !== categoryId)
+      );
+    } else {
+      setSelectedCategories((prevSelected) => [...prevSelected, categoryId]);
+    }
+  };
+
   const navigate = useNavigate();
 
   const [AvailableProducts, setAvailableProducts] = useState(0);
@@ -40,10 +56,14 @@ const Home = () => {
       const productData = response.data;
       setallProducts(productData);
 
+      const categoriesResponse = await GetCategories("api/category", authToken);
+      const categoriesData = categoriesResponse.data;
+
       const activateProducts = productData.filter((product) => {
         return product.availability == true;
       });
       setAvailableProducts(activateProducts.length);
+      setCategories(categoriesData.map((category) => category.filter));
     } catch (error) {
       console.error("Error al cargar los productos", error);
     }
@@ -60,8 +80,34 @@ const Home = () => {
     const filtered = allProducts.filter((product) =>
       product.nameProducts.toLowerCase().includes(searchTerm.toLowerCase())
     );
-    setFilteredProducts(filtered);
-  }, [allProducts, searchTerm]);
+
+    const filteredByCategory = filtered.filter((product) => {
+      if (selectedCategories.length === 0) {
+        return true;
+      }
+      return selectedCategories.includes(product.category.filter);
+    });
+
+    setFilteredProducts(filteredByCategory);
+  }, [allProducts, searchTerm, selectedCategories]);
+
+  // Pagination
+  const [pageNumber, setPageNumber] = useState(0);
+
+  const productPerPage = 3;
+
+  const visitedPage = pageNumber * productPerPage;
+
+  const displayPage = filteredProducts.slice(
+    visitedPage,
+    visitedPage + productPerPage
+  );
+
+  const pageCount = Math.ceil(filteredProducts.length / productPerPage);
+
+  const changePage = ({ selected }) => {
+    setPageNumber(selected);
+  };
 
   return (
     <div className="d-flex">
@@ -89,14 +135,23 @@ const Home = () => {
                       <VscListFilter className="filter-icon mt-1" />
                     </Dropdown.Toggle>
 
-                    <Dropdown.Menu>
-                      <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                      <Dropdown.Item href="#/action-2">
-                        Another action
-                      </Dropdown.Item>
-                      <Dropdown.Item href="#/action-3">
-                        Something else
-                      </Dropdown.Item>
+                    <Dropdown.Menu className="ps-3">
+                      <Form.Label
+                        style={{ color: "#007bff", fontWeight: "bold" }}
+                      >
+                        Select filters
+                      </Form.Label>
+                      {categories.map((category) => (
+                        <Form.Check
+                          style={{ fontSize: "14px" }}
+                          type="checkbox"
+                          key={`category-${category}`}
+                          id={`category-${category}`}
+                          label={category}
+                          onChange={() => handleCategorySelect(category)}
+                          checked={selectedCategories.includes(category)}
+                        />
+                      ))}
                     </Dropdown.Menu>
                   </Dropdown>
                 </div>
@@ -117,14 +172,23 @@ const Home = () => {
                       <VscListFilter className="filter-icon mt-2 ms-3" />
                     </Dropdown.Toggle>
 
-                    <Dropdown.Menu>
-                      <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                      <Dropdown.Item href="#/action-2">
-                        Another action
-                      </Dropdown.Item>
-                      <Dropdown.Item href="#/action-3">
-                        Something else
-                      </Dropdown.Item>
+                    <Dropdown.Menu className="ps-3 mt-1">
+                      <Form.Label
+                        style={{ color: "#007bff", fontWeight: "bold" }}
+                      >
+                        Select filters
+                      </Form.Label>
+                      {categories.map((category) => (
+                        <Form.Check
+                          style={{ fontSize: "14px" }}
+                          type="checkbox"
+                          key={`category-${category}`}
+                          id={`category-${category}`}
+                          label={category}
+                          onChange={() => handleCategorySelect(category)}
+                          checked={selectedCategories.includes(category)}
+                        />
+                      ))}
                     </Dropdown.Menu>
                   </Dropdown>
                 </div>
@@ -174,6 +238,19 @@ const Home = () => {
                 </div>
               </div>
             </div>
+
+            <div className="mt-3" id="Paginate">
+              <ReactPaginate
+                pageCount={pageCount}
+                onPageChange={changePage}
+                previousLabel="Prev"
+                previousClassName="paginate-butts"
+                nextLabel="Next"
+                nextClassName="paginate-butts"
+                containerClassName="paginationBttns"
+                activeClassName={"active_pagination"}
+              />
+            </div>
           </MediaQuery>
 
           <MediaQuery minWidth={768} maxWidth={1199}>
@@ -215,6 +292,19 @@ const Home = () => {
                   <p>Available products</p>
                 </div>
               </div>
+            </div>
+
+            <div className="mt-3" id="Paginate">
+              <ReactPaginate
+                pageCount={pageCount}
+                onPageChange={changePage}
+                previousLabel="Prev"
+                previousClassName="paginate-butts"
+                nextLabel="Next"
+                nextClassName="paginate-butts"
+                containerClassName="paginationBttns"
+                activeClassName={"active_pagination"}
+              />
             </div>
           </MediaQuery>
 
@@ -258,12 +348,25 @@ const Home = () => {
                 </div>
               </div>
             </div>
+
+            <div className="mt-3 mb-0" id="Paginate">
+              <ReactPaginate
+                pageCount={pageCount}
+                onPageChange={changePage}
+                previousLabel="Prev"
+                previousClassName="paginate-butts"
+                nextLabel="Next"
+                nextClassName="paginate-butts"
+                containerClassName="paginationBttns"
+                activeClassName={"active_pagination"}
+              />
+            </div>
           </MediaQuery>
         </MediaQuery>
 
         {/* Dashboard Body */}
         <div className="product-list gap-4 mt-md-3 mt-xl-4 mx-xl-5 mx-0 px-0 mt-1">
-          {filteredProducts.map((product) => {
+          {displayPage.map((product) => {
             return (
               <div className="" key={product?._id}>
                 <Product product={product} fetchData={fetchData} />
