@@ -239,7 +239,7 @@ const Home = () => {
               </div>
             </div>
 
-            <div className="mt-3" id="Paginate">
+            <div className="mt-3 mb-4" id="Paginate">
               <ReactPaginate
                 pageCount={pageCount}
                 onPageChange={changePage}
