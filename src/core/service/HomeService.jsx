@@ -23,3 +23,11 @@ export const DeleteProduct = async (url, token, id) => {
         }
     })
 }
+
+export const UpdateProduct = async (url, token, productId, data) => {
+    return await axios.patch('https://cugusacompany.onrender.com/' + url + productId, data, {
+        headers: {
+            "x-access-token": token
+        }
+    })
+}

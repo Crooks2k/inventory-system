@@ -24,10 +24,16 @@ import {
   MDBIcon,
 } from "mdb-react-ui-kit";
 import Skeleton from "../../../core/common/Skeleton/Skeleton";
+import EditProductModal from "./EditProduct/EditProductModal";
 
 const Product = ({ product, fetchData }) => {
   const [imageLoaded, setImageLoaded] = useState(true);
   const [changedValue, setchangedValue] = useState(product.availability);
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   const handleImageError = () => {
     setImageLoaded(false);
   };
@@ -65,7 +71,9 @@ const Product = ({ product, fetchData }) => {
       if (result.isConfirmed) {
         try {
           const del = DeleteProduct("api/products/", authToken, product._id);
-          if(del.msg = "Deleted"){fetchData()}
+          if ((del.msg = "Deleted")) {
+            fetchData();
+          }
           Swal.fire("Deleted!", "Your product has been deleted.", "success");
         } catch (error) {
           Swal.fire(
@@ -80,6 +88,7 @@ const Product = ({ product, fetchData }) => {
 
   return (
     <>
+      <EditProductModal show={show} handleClose={handleClose} product={product} fetchData={fetchData}/>
       <MediaQuery maxWidth={767}>
         <MDBRow>
           <MDBCard className="text-black">
@@ -214,7 +223,7 @@ const Product = ({ product, fetchData }) => {
 
               <div className="d-flex justify-content-center total font-weight-bold mt-4">
                 <ButtonGroup aria-label="Basic example" className="card-butts">
-                  <Button variant="primary fs-5">
+                  <Button variant="primary fs-5" onClick={handleShow}>
                     <RiEditBoxLine className="mb-1 icon" />
                   </Button>
                   <Button variant="primary">
@@ -252,7 +261,7 @@ const Product = ({ product, fetchData }) => {
                 alt={"Product Image " + product?.nameProducts}
                 onError={handleImageError}
                 className="card-images mt-5 pt-3 me-3"
-                style={{"marginLeft": "-20px"}}
+                style={{ marginLeft: "-20px" }}
               />
             ) : (
               <Skeleton
@@ -378,7 +387,7 @@ const Product = ({ product, fetchData }) => {
 
               <div className="d-flex justify-content-center total font-weight-bold mt-4">
                 <ButtonGroup aria-label="Basic example" className="card-butts">
-                  <Button variant="primary fs-5">
+                  <Button variant="primary fs-5" onClick={handleShow}>
                     <RiEditBoxLine className="mb-1 icon" />
                   </Button>
                   <Button variant="primary">

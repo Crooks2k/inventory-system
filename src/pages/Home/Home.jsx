@@ -10,9 +10,14 @@ import Swal from "sweetalert2";
 import onTheWay from "../../assets/images/OnTheWay.png";
 import Quantity from "../../assets/images/Quantity.png";
 import Skeleton from "../../core/common/Skeleton/Skeleton";
+import { AiOutlineSearch } from "react-icons/ai";
+import { VscListFilter } from "react-icons/vsc";
+import Dropdown from "react-bootstrap/Dropdown";
 
 const Home = () => {
   const [allProducts, setallProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
 
   const [AvailableProducts, setAvailableProducts] = useState(0);
@@ -35,10 +40,10 @@ const Home = () => {
       const productData = response.data;
       setallProducts(productData);
 
-      const activateProducts = allProducts.filter((product) => {
+      const activateProducts = productData.filter((product) => {
         return product.availability == true;
       });
-      setAvailableProducts(activateProducts);
+      setAvailableProducts(activateProducts.length);
     } catch (error) {
       console.error("Error al cargar los productos", error);
     }
@@ -46,6 +51,17 @@ const Home = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  useEffect(() => {
+    const filtered = allProducts.filter((product) =>
+      product.nameProducts.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredProducts(filtered);
+  }, [allProducts, searchTerm]);
 
   return (
     <div className="d-flex">
@@ -58,26 +74,60 @@ const Home = () => {
           <>
             <MediaQuery minWidth={768}>
               <div className="home-bar py-4 px-4 w-100 text-bg-light shadow-sm d-flex justify-content-between">
-                <div>
+                <div className="ms-4">
+                  <AiOutlineSearch className="search-icon" />
                   <input
                     type="search"
                     placeholder="Search Product..."
-                    className="search shadow-sm px-2 py-1"
+                    className="search shadow-sm py-1"
+                    onChange={handleSearchChange}
                   />
                 </div>
                 <div>
-                  <p>Filter Icon</p>
+                  <Dropdown>
+                    <Dropdown.Toggle className="filter-togler">
+                      <VscListFilter className="filter-icon mt-1" />
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                      <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                      <Dropdown.Item href="#/action-2">
+                        Another action
+                      </Dropdown.Item>
+                      <Dropdown.Item href="#/action-3">
+                        Something else
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
                 </div>
               </div>
             </MediaQuery>
 
             <MediaQuery minWidth={320} maxWidth={767}>
-              <div className="home-bar-m py-3 w-100 text-bg-light shadow-sm ms-2">
+              <div className="home-bar-m d-flex flex-row py-3 ps-5 w-100 text-bg-light shadow-sm ms-2">
                 <input
                   type="search"
                   placeholder="Search Product..."
                   className="search shadow-sm px-3 py-2"
+                  onChange={handleSearchChange}
                 />
+                <div>
+                  <Dropdown>
+                    <Dropdown.Toggle className="filter-togler">
+                      <VscListFilter className="filter-icon mt-2 ms-3" />
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                      <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                      <Dropdown.Item href="#/action-2">
+                        Another action
+                      </Dropdown.Item>
+                      <Dropdown.Item href="#/action-3">
+                        Something else
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </div>
               </div>
             </MediaQuery>
           </>
@@ -118,7 +168,7 @@ const Home = () => {
                       marginTop={"7px"}
                     />
                   ) : (
-                    <p>{AvailableProducts.length}</p>
+                    <p>{AvailableProducts}</p>
                   )}
                   <p className="movil-text">Available products</p>
                 </div>
@@ -160,7 +210,7 @@ const Home = () => {
                       marginTop={"7px"}
                     />
                   ) : (
-                    <p>{AvailableProducts.length}</p>
+                    <p>{AvailableProducts}</p>
                   )}
                   <p>Available products</p>
                 </div>
@@ -202,7 +252,7 @@ const Home = () => {
                       marginTop={"7px"}
                     />
                   ) : (
-                    <p>{AvailableProducts.length}</p>
+                    <p>{AvailableProducts}</p>
                   )}
                   <p>Available products</p>
                 </div>
@@ -213,10 +263,10 @@ const Home = () => {
 
         {/* Dashboard Body */}
         <div className="product-list gap-4 mt-md-3 mt-xl-4 mx-xl-5 mx-0 px-0 mt-1">
-          {allProducts.map((product) => {
+          {filteredProducts.map((product) => {
             return (
               <div className="" key={product?._id}>
-                <Product product={product} fetchData={fetchData}/>
+                <Product product={product} fetchData={fetchData} />
               </div>
             );
           })}
