@@ -4,8 +4,10 @@ import AsideMenu from "../../core/layout/Aside/AsideMenu";
 import "../NewProduct/NewProduct.css";
 import MediaQuery from "react-responsive";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router";
 
 function NewProduct() {
+  const navigate = useNavigate();
   const initialFormData = {
     nameProducts: "",
     imgProduct: "",
@@ -80,21 +82,37 @@ function NewProduct() {
     }
 
     try {
-      await axios.post(
-        "https://cugusacompany.onrender.com/api/products/",
-        formData,
-        {
-          headers: {
-            "x-access-token": authToken,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
       Swal.fire({
-        icon: 'success',
-        title: 'Product successfully added',
-        text: 'The new product has been successfully added.',
+        title: "Are you sure to create this product?",
+        text: "You can modify it later if you wish.",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, create it!",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          await axios.post(
+            "https://cugusacompany.onrender.com/api/products/",
+            formData,
+            {
+              headers: {
+                "x-access-token": authToken,
+                "Content-Type": "application/json",
+              },
+            }
+          );
+
+          Swal.fire(
+            "Created!",
+            "Your product was created successfully",
+            "success"
+          );
+
+          setTimeout(() => {
+            navigate("/dashboard");
+          }, 1000);
+        }
       });
 
       // Restablecer el estado del formulario a "initialFormData"
@@ -529,8 +547,6 @@ function NewProduct() {
               </form>
             </div>
           </MediaQuery>
-
-
         </main>
       </div>
     </>

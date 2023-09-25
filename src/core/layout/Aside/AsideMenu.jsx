@@ -12,12 +12,40 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import { AiOutlineMenu } from "react-icons/ai";
 import { useState } from "react";
 import { Logout } from "../../service/AuthService";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const AsideMenu = () => {
   const [show, setShow] = useState(false);
 
+  const navigate = useNavigate()
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const handleLogout = () => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "you are about to log out?",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, logout!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'success!',
+          'Your session has been closed!',
+          'success'
+        )
+      }
+      setTimeout(() => {
+        Logout()
+        navigate("/")
+      }, 1500);
+    })
+  }
 
   const role = localStorage.getItem("role");
   return (
@@ -102,8 +130,8 @@ const AsideMenu = () => {
             )}
           </Nav>
           <hr />
-          <NavItem className="mx-auto" onClick={() => Logout()}>
-            <Nav.Link to="/" as={Link}>
+          <NavItem className="mx-auto" onClick={() => handleLogout()}>
+            <Nav.Link>
               <MdLogout className="navItem mb-1" />{" "}
               <span className="navItem">Logout</span>
             </Nav.Link>
@@ -166,8 +194,8 @@ const AsideMenu = () => {
             )}
           </Nav>
           <hr />
-          <NavItem className="mx-auto mb-3" onClick={() => Logout()}>
-            <Nav.Link to="/" as={Link}>
+          <NavItem className="mx-auto mb-3" onClick={() => handleLogout()}>
+            <Nav.Link>
               <MdLogout className="navItem mb-1 fs-4" />
             </Nav.Link>
           </NavItem>
@@ -253,8 +281,8 @@ const AsideMenu = () => {
               )}
             </Nav>
             <hr />
-            <NavItem className="mx-auto" onClick={() => Logout()}>
-              <Nav.Link to="/" as={Link}>
+            <NavItem className="mx-auto" onClick={() => handleLogout()}>
+              <Nav.Link>
                 <MdLogout className="navItem mb-1" />{" "}
                 <span className="navItem">Logout</span>
               </Nav.Link>
