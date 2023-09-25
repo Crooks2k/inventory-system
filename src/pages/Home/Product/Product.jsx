@@ -54,7 +54,7 @@ const Product = ({ product, fetchData }) => {
     setchangedValue(!changedValue);
     product.availability = changedValue;
     ChangeAvailability("api/products/", authToken, product._id, {
-      availability: changedValue,
+      availability: !changedValue,
     });
   };
 

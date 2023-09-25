@@ -3,11 +3,9 @@ import axios from "axios";
 import AsideMenu from "../../core/layout/Aside/AsideMenu";
 import "../NewProduct/NewProduct.css";
 import MediaQuery from "react-responsive";
-import Swal from "sweetalert2";
-import { useNavigate } from "react-router";
+import Swal from "sweetalert2"
 
 function NewProduct() {
-  const navigate = useNavigate();
   const initialFormData = {
     nameProducts: "",
     imgProduct: "",
@@ -108,15 +106,11 @@ function NewProduct() {
             "Your product was created successfully",
             "success"
           );
-
-          setTimeout(() => {
-            navigate("/dashboard");
-          }, 1000);
+          // Restablecer el estado del formulario a "initialFormData"
+          setFormData(initialFormData);
         }
       });
 
-      // Restablecer el estado del formulario a "initialFormData"
-      setFormData(initialFormData);
     } catch (error) {
       console.error("Error al registrar el producto:", error);
       console.error("Error al registrar el producto:", error);
