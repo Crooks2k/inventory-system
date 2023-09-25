@@ -66,18 +66,29 @@ const Employees = () => {
       });
   };
 
-  const handleDeleteUser = (userId) => {
+  const handleDeleteUser = (id) => {
+    // Verificar si el usuario actual tiene el rol de administrador
+    if (role !== "admin") {
+      Swal.fire({
+        icon: "error",
+        title: "Acceso denegado",
+        text: "No tienes permisos para eliminar usuarios.",
+      });
+      return;
+    }
+  
+    // Si el usuario es administrador, realizar la petición de eliminación
     axios
-      .delete(`https://cugusacompany.onrender.com/api/users/${userId}`, {
+      .delete(`https://cugusacompany.onrender.com/api/users/${id}`, {
         headers: {
-          "X-Access-Token": token,
+          "x-access-token": token,
         },
       })
       .then((response) => {
         setEmployees((prevEmployees) =>
-          prevEmployees.filter((employee) => employee._id !== userId)
+          prevEmployees.filter((employee) => employee._id !== id)
         );
-
+  
         Swal.fire({
           icon: "success",
           title: "Usuario eliminado con éxito",
@@ -86,15 +97,15 @@ const Employees = () => {
       })
       .catch((error) => {
         console.error("Error al eliminar el usuario:", error);
-
+  
         Swal.fire({
           icon: "error",
           title: "Error al eliminar el usuario",
           text: "Ha ocurrido un error al intentar eliminar el usuario.",
         });
       });
+    console.log(id);
   };
-
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = employees.slice(indexOfFirstItem, indexOfLastItem);
@@ -112,15 +123,19 @@ const Employees = () => {
             {role === "admin" ? (
               <>
                 <h2>Lista de Empleados</h2>
-
-                <button onClick={handleShowAddModal}>
-                  Agregar Nuevo Empleado
-                </button>
+                <div className="d-flex justify-content-end mb-3">
+  <button
+    className="btn btn-sm btn-primary font-weight-bold"
+    onClick={handleShowAddModal}
+  >
+    Add New Employee
+  </button>
+</div>
                 <Table responsive>
                   <thead>
                     <tr>
                       <th>#</th>
-                      <th>NickName</th>
+                      <th>Full Name</th>
                       <th>Email</th>
                       <th>LastConnect</th>
                       <th>Acciones</th>

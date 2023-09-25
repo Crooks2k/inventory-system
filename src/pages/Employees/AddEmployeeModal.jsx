@@ -63,7 +63,7 @@ const AddEmployeeModal = ({ show, handleClose, token, role }) => {
       <Modal.Body>
         <form>
           <div className="form-group">
-            <label>NickName</label>
+            <label>Full Name</label>
             <input
               type="text"
               name="nickName"
