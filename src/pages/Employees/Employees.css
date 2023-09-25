@@ -2,3 +2,10 @@
 .table-margin {
     margin: 10px; 
   }
+
+.btn-employee {
+  margin-right: 30px;
+}
+.pagination {
+  margin-left: 20px;
+}

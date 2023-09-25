@@ -4,12 +4,13 @@ import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
-const AddEmployeeModal = ({ show, handleClose, token, role }) => {
+const AddEmployeeModal = ({ show, handleClose, token, role, updateEmployeeList }) => {
   const [newEmployee, setNewEmployee] = useState({
     nickName: '',
     email: '',
     password: '',
   });
+  
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -29,6 +30,8 @@ const AddEmployeeModal = ({ show, handleClose, token, role }) => {
       });
       return;
     }
+
+    
    
     axios.post('https://cugusacompany.onrender.com/api/users/create', newEmployee, {
       headers: {
@@ -39,6 +42,7 @@ const AddEmployeeModal = ({ show, handleClose, token, role }) => {
       .then((response) => {
         
         handleClose();
+        updateEmployeeList()
        
         Swal.fire({
           icon: 'success',
@@ -54,6 +58,7 @@ const AddEmployeeModal = ({ show, handleClose, token, role }) => {
           text: 'An error occurred while trying to add the employee.',
         });
       });
+
   };
   return (
     <Modal show={show} onHide={handleClose}>

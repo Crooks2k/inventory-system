@@ -71,8 +71,8 @@ const Employees = () => {
     if (role !== "admin") {
       Swal.fire({
         icon: "error",
-        title: "Acceso denegado",
-        text: "No tienes permisos para eliminar usuarios.",
+        title: "Access denied",
+        text: "You do not have permissions to delete users.",
       });
       return;
     }
@@ -91,8 +91,8 @@ const Employees = () => {
   
         Swal.fire({
           icon: "success",
-          title: "Usuario eliminado con éxito",
-          text: "El usuario ha sido eliminado correctamente.",
+          title: "Successfully deleted user",
+          text: "Successfully deleted user.",
         });
       })
       .catch((error) => {
@@ -100,11 +100,11 @@ const Employees = () => {
   
         Swal.fire({
           icon: "error",
-          title: "Error al eliminar el usuario",
-          text: "Ha ocurrido un error al intentar eliminar el usuario.",
+          title: "Error deleting user",
+          text: "An error occurred while trying to delete the user.",
         });
       });
-    console.log(id);
+
   };
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -125,7 +125,7 @@ const Employees = () => {
                 <h2>Lista de Empleados</h2>
                 <div className="d-flex justify-content-end mb-3">
   <button
-    className="btn btn-sm btn-primary font-weight-bold"
+    className="btn btn-sm btn-primary font-weight-bold btn-employee"
     onClick={handleShowAddModal}
   >
     Add New Employee
@@ -163,7 +163,7 @@ const Employees = () => {
                     ))}
                   </tbody>
                 </Table>
-                <Pagination>
+                <Pagination className="pagination">
                   {Array.from(
                     { length: Math.ceil(employees.length / itemsPerPage) },
                     (_, index) => (
