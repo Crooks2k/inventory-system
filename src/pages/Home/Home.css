@@ -27,4 +27,39 @@
 .search{
     border: none;
     font-size: 18px;
+    width: 200px;
+    background-color: transparent!important;
+    border-radius: 10px;
+    padding-left: 2rem;
+}
+.search-icon{
+    color: var(--title);
+    font-size: 21px;
+    margin-right: -1.8rem;
+    margin-bottom: 0.3rem;
+    margin-left: 0.3rem;
+}
+.search:focus{
+    outline: 2px solid #0663e6;
+    color: var(--focus_subtitle);
+}
+.search:placeholder-shown{
+    border: 1px solid var(--title);
+}
+@media(max-width: 360px){
+    .movil-text{
+        font-size: 15px;
+    }
+}
+.filter-icon{
+    font-size: 35px!important;
+    color: var(--title)
+}
+.filter-togler{
+    background-color: transparent!important;
+    height: 45px;
+    width: 75px;
+    margin: 0!important;
+    padding: 0!important;
+    border: none!important;
 }
