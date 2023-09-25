@@ -3,6 +3,7 @@ import axios from "axios";
 import AsideMenu from "../../core/layout/Aside/AsideMenu";
 import "../NewProduct/NewProduct.css";
 import MediaQuery from "react-responsive";
+import Swal from "sweetalert2";
 
 function NewProduct() {
   const initialFormData = {
@@ -90,7 +91,11 @@ function NewProduct() {
         }
       );
 
-      alert("Producto registrado exitosamente");
+      Swal.fire({
+        icon: 'success',
+        title: 'Product successfully added',
+        text: 'The new product has been successfully added.',
+      });
 
       // Restablecer el estado del formulario a "initialFormData"
       setFormData(initialFormData);
