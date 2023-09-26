@@ -112,7 +112,7 @@ const EditProductModal = ({
     }
 
     axios
-      .get("https://cugusacompany.onrender.com/api/category", {
+      .get("https://cugusainventory.onrender.com//api/category", {
         headers: {
           "x-access-token": authToken,
         },

@@ -17,7 +17,7 @@ export default function LoginAdmin() {
     event.preventDefault();
     try {
       const response = await axios.post(
-        "https://cugusacompany.onrender.com/api/superAdmin/signin",
+        "https://cugusainventory.onrender.com/api/superAdmin/signin",
         {
           email,
           password,

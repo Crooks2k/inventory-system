@@ -2,7 +2,7 @@ import axios from "axios"
 
 export const SignIn = (email, password) => {
     return axios.post(
-        "https://cugusacompany.onrender.com/api/superAdmin/signin",
+        "https://cugusainventory.onrender.com/api/superAdmin/signin",
         {
           email,
           password,

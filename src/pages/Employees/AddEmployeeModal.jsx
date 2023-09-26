@@ -33,7 +33,7 @@ const AddEmployeeModal = ({ show, handleClose, token, role, updateEmployeeList }
 
     
    
-    axios.post('https://cugusacompany.onrender.com/api/users/create', newEmployee, {
+    axios.post('https://cugusainventory.onrender.com/api/users/create', newEmployee, {
       headers: {
         "x-access-token": token,
         "Content-Type": "application/json",

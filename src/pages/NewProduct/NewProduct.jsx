@@ -36,7 +36,7 @@ function NewProduct() {
     }
 
     axios
-      .get("https://cugusacompany.onrender.com/api/category", {
+      .get("https://cugusainventory.onrender.com/api/category", {
         headers: {
           "x-access-token": authToken,
         },
@@ -97,7 +97,7 @@ function NewProduct() {
       }).then(async (result) => {
         if (result.isConfirmed) {
           await axios.post(
-            "https://cugusacompany.onrender.com/api/products/",
+            "https://cugusainventory.onrender.com/api/products/",
             formData,
             {
               headers: {

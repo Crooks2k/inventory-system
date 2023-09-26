@@ -23,7 +23,7 @@ const Employees = () => {
   useEffect(() => {
     if (role === "admin") {
       axios
-        .get("https://cugusacompany.onrender.com/api/users/usersByRole", {
+        .get("https://cugusainventory.onrender.com/api/users/usersByRole", {
           headers: {
             "X-Access-Token": token,
           },
@@ -56,7 +56,7 @@ const Employees = () => {
 
   const updateEmployeeList = () => {
     axios
-      .get("https://cugusacompany.onrender.com/api/users/usersByRole", {
+      .get("https://cugusainventory.onrender.com/api/users/usersByRole", {
         headers: {
           "X-Access-Token": token,
         },
@@ -114,7 +114,7 @@ const currentEmployees = employees.slice(indexOfFirstEmployee, indexOfLastEmploy
       if (result.isConfirmed) {
    
         axios
-          .delete(`https://cugusacompany.onrender.com/api/users/${id}`, {
+          .delete(`https://cugusainventory.onrender.com/api/users/${id}`, {
             headers: {
               "x-access-token": token,
             },

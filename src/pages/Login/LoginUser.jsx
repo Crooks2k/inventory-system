@@ -22,7 +22,7 @@ export default function LoginUser() {
     event.preventDefault();
     //Consuming API
     try {
-      const response = await axios.post("https://cugusacompany.onrender.com/api/users/login", {
+      const response = await axios.post("https://cugusainventory.onrender.com/api/users/login", {
         email,
         password,
       });
