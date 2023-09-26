@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Table from "react-bootstrap/Table";
-import Pagination from "react-bootstrap/Pagination"; 
 import "./Employees.css";
 import AsideMenu from "../../core/layout/Aside/AsideMenu";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import AddEmployeeModal from "./AddEmployeeModal";
 import {MdDelete} from "react-icons/md";
+import ReactPaginate from "react-paginate";
+
 
 const Employees = () => {
   const navigate = useNavigate();
   const role = localStorage.getItem("role");
   const token = localStorage.getItem("token");
   const [employees, setEmployees] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(5);
   const [showAddModal, setShowAddModal] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0);
+  const perPage = 10; 
+
 
   useEffect(() => {
     if (role === "admin") {
@@ -66,6 +68,14 @@ const Employees = () => {
         console.error("Error al obtener la lista de empleados:", error);
       });
   };
+
+  const handlePageChange = (selectedPage) => {
+    setCurrentPage(selectedPage.selected);
+  };
+
+  const indexOfLastEmployee = (currentPage + 1) * perPage;
+const indexOfFirstEmployee = indexOfLastEmployee - perPage;
+const currentEmployees = employees.slice(indexOfFirstEmployee, indexOfLastEmployee);
 
   const handleDeleteUser = (id) => {
     // Verificar si el usuario actual tiene el rol de administrador
@@ -134,11 +144,7 @@ const Employees = () => {
   
 
   };
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = employees.slice(indexOfFirstItem, indexOfLastItem);
-
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  
 
   return (
     <>
@@ -151,7 +157,7 @@ const Employees = () => {
             {role === "admin" ? (
               <>
               <div className="title-employees">
-              <h2 className="h2-employees">Lista de Empleados</h2>
+              <h2 className="h2-employees">Employees</h2>
               </div>
                 
                 <div className="d-flex justify-content-end mb-3">
@@ -162,10 +168,9 @@ const Employees = () => {
     Add New Employee
   </button>
 </div>
-                <Table responsive>
+                <Table responsive className="table-employees">
                   <thead>
                     <tr>
-                      <th>#</th>
                       <th>Full Name</th>
                       <th>Email</th>
                       <th>LastConnect</th>
@@ -173,9 +178,8 @@ const Employees = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {currentItems.map((employee, index) => (
+                    {currentEmployees.map((employee, index) => (
                       <tr key={employee._id}>
-                        <td>{index + 1 + indexOfFirstItem}</td>
                         <td>{employee.nickName}</td>
                         <td>{employee.email}</td>
                         <td>
@@ -184,7 +188,7 @@ const Employees = () => {
                             : "N/A"}
                         </td>
                         <td>
-                          <button
+                          <button className="trash-button"
                             onClick={() => handleDeleteUser(employee._id)}
                           >
                             <MdDelete className="trash-icon" />
@@ -194,20 +198,6 @@ const Employees = () => {
                     ))}
                   </tbody>
                 </Table>
-                <Pagination className="pagination">
-                  {Array.from(
-                    { length: Math.ceil(employees.length / itemsPerPage) },
-                    (_, index) => (
-                      <Pagination.Item
-                        key={index}
-                        active={index + 1 === currentPage}
-                        onClick={() => paginate(index + 1)}
-                      >
-                        {index + 1}
-                      </Pagination.Item>
-                    )
-                  )}
-                </Pagination>
               </>
             ) : (
               <p>No tienes permisos para ver esta información.</p>
@@ -221,6 +211,18 @@ const Employees = () => {
             role={role}
             updateEmployeeList={updateEmployeeList}
           />
+      <div className="mt-3 mb-4" id="Paginate">
+          <ReactPaginate
+  previousLabel="Prev"
+  nextLabel="Next"
+  previousClassName="paginate-butts"
+  nextClassName="paginate-butts"
+  pageCount={Math.ceil(employees.length / perPage)}
+  onPageChange={handlePageChange}
+  containerClassName="paginationBttns"
+  activeClassName={"active_pagination"}
+/>
+</div>
         </main>
       </div>
     </>

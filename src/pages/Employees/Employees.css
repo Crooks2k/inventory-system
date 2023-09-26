@@ -4,7 +4,7 @@
   }
 
 .btn-employee {
-  margin-right: 30px;
+  margin-right: 35px;
   margin-top: 10px;
 }
 .pagination {
@@ -21,6 +21,59 @@
   color: red;
 }
 
-.h2-employees{
-  margin-top: 14px;
+.trash-button {
+  background-color: white;
+  border: none;
 }
+
+.table-employees {
+  margin: 35px;
+  border-collapse: collapse;
+}
+
+.table-employees th,
+.table-employees td {
+  text-align: center;
+  border-bottom: 20px solid #ffffff;
+}
+
+.h2-employees{
+  font-size: 40px;
+  color: #0663e6;
+}
+
+.paginationBttns {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin-bottom: -0.7rem!important;
+}
+
+.paginationBttns li {
+  margin: 0 10px;
+  margin-top: 0.3rem!important;
+  margin: 0 !important;
+  margin-right: 10px!important;
+}
+.paginationBttns li a{
+  color: var(--title);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.paginate-butts {
+  background-color: #ffffff;
+  color: var(--title);
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin-bottom: 0.3rem!important;
+}
+
+.active_pagination {
+  margin: 0 !important;
+  text-align: center;
+  color: var(--title);
+  height: 22px;
+  border-bottom: 2px solid #0663e6;
+}  
