@@ -88,7 +88,14 @@ const Product = ({ product, fetchData }) => {
 
   return (
     <>
-      <EditProductModal show={show} handleClose={handleClose} product={product} fetchData={fetchData}/>
+      <EditProductModal
+        show={show}
+        handleClose={handleClose}
+        product={product}
+        fetchData={fetchData}
+        setchangedValue={setchangedValue}
+        changedValue={changedValue}
+      />
       <MediaQuery maxWidth={767}>
         <MDBRow>
           <MDBCard className="text-black">
@@ -120,7 +127,7 @@ const Product = ({ product, fetchData }) => {
                   <p className="no-available">Not Available</p>
                 )}
                 <p className="text-muted category">
-                  {product?.category.filter} | {product?.measures}CM |{" "}
+                  {product?.category?.filter} | {product?.measures}CM |{" "}
                   {product?.quantity} In Stock
                 </p>
               </div>
@@ -144,77 +151,116 @@ const Product = ({ product, fetchData }) => {
                     <Accordion.Item eventKey="0">
                       <Accordion.Header>Prices by city</Accordion.Header>
                       <Accordion.Body>
-                        <div className="d-flex justify-content-between">
-                          <span>West Palm Beach:</span>
-                          <span>
-                            {product?.price == 0
-                              ? "undefined price"
-                              : "$ " + product?.price}
-                          </span>
-                        </div>
-                        <hr></hr>
-                        <div className="d-flex justify-content-between">
-                          <span>Stuart:</span>
-                          <span>
-                            {product?.price2 == 0
-                              ? "undefined price"
-                              : "$ " + product?.price2}
-                          </span>
-                        </div>
-                        <hr></hr>
-                        <div className="d-flex justify-content-between">
-                          <span>Daytona Beach:</span>
-                          <span>
-                            {product?.price3 == 0
-                              ? "undefined price"
-                              : "$ " + product?.price3}
-                          </span>
-                        </div>
-                        <hr></hr>
-                        <div className="d-flex justify-content-between">
-                          <span>Jacksonville:</span>
-                          <span>
-                            {product?.price4 == 0
-                              ? "undefined price"
-                              : "$ " + product?.price4}
-                          </span>
-                        </div>
-                        <hr></hr>
-                        <div className="d-flex justify-content-between">
-                          <span>Houston:</span>
-                          <span>
-                            {product?.price5 == 0
-                              ? "undefined price"
-                              : "$ " + product?.price5}
-                          </span>
-                        </div>
-                        <hr></hr>
-                        <div className="d-flex justify-content-between">
-                          <span>Dallas:</span>
-                          <span>
-                            {product?.price6 == 0
-                              ? "undefined price"
-                              : "$ " + product?.price6}
-                          </span>
-                        </div>
-                        <hr></hr>
-                        <div className="d-flex justify-content-between">
-                          <span>Beaumont:</span>
-                          <span>
-                            {product?.price7 == 0
-                              ? "undefined price"
-                              : "$ " + product?.price7}
-                          </span>
-                        </div>
-                        <hr></hr>
-                        <div className="d-flex justify-content-between">
-                          <span>New Orleans:</span>
-                          <span>
-                            {product?.price8 == 0
-                              ? "undefined price"
-                              : "$ " + product?.price8}
-                          </span>
-                        </div>
+                        {product?.price == undefined || product?.price == 0 ? (
+                          ""
+                        ) : (
+                          <>
+                            <div className="d-flex justify-content-between">
+                              <span>West Palm Beach:</span>
+                              <span>
+                                ${product?.price}
+                              </span>
+                            </div>
+                            <hr></hr>
+                          </>
+                        )}
+
+                        {product?.price2 == undefined || product?.price2 == 0 ? (
+                          ""
+                        ) : (
+                          <>
+                            <div className="d-flex justify-content-between">
+                              <span>Stuart:</span>
+                              <span>
+                                ${product?.price2}
+                              </span>
+                            </div>
+                            <hr></hr>
+                          </>
+                        )}
+
+                        {product?.price3 == undefined || product?.price3 == 0? (
+                          ""
+                        ) : (
+                          <>
+                            <div className="d-flex justify-content-between">
+                              <span>Daytona Beach:</span>
+                              <span>
+                                ${product?.price3}
+                              </span>
+                            </div>
+                            <hr></hr>
+                          </>
+                        )}
+
+                        {product?.price4 == undefined || product?.price4 == 0? (
+                          ""
+                        ) : (
+                          <>
+                            <div className="d-flex justify-content-between">
+                              <span>Jacksonville:</span>
+                              <span>
+                                ${product?.price4}
+                              </span>
+                            </div>
+                            <hr></hr>
+                          </>
+                        )}
+
+                        {product?.price5 == undefined || product?.price5 == 0? (
+                          ""
+                        ) : (
+                          <>
+                            <div className="d-flex justify-content-between">
+                              <span>Houston:</span>
+                              <span>
+                                ${product?.price5}
+                              </span>
+                            </div>
+                            <hr></hr>
+                          </>
+                        )}
+
+                        {product?.price6 == undefined || product?.price6 == 0? (
+                          ""
+                        ) : (
+                          <>
+                            <div className="d-flex justify-content-between">
+                              <span>Dallas:</span>
+                              <span>
+                                ${product?.price6}
+                              </span>
+                            </div>
+                            <hr></hr>
+                          </>
+                        )}
+
+                        {product?.price7 == undefined || product?.price7 == 0 ? (
+                          ""
+                        ) : (
+                          <>
+                            <div className="d-flex justify-content-between">
+                              <span>Beaumont:</span>
+                              <span>
+                                ${product?.price7}
+                              </span>
+                            </div>
+                            <hr></hr>
+                          </>
+                        )}
+
+                        {product?.price8 == undefined || product?.price8 == 0? (
+                          ""
+                        ) : (
+                          <>
+                            <div className="d-flex justify-content-between">
+                              <span>New Orleans:</span>
+                              <span>
+                                ${product?.price8}
+                              </span>
+                            </div>
+                          </>
+                        )}
                       </Accordion.Body>
                     </Accordion.Item>
                   </Accordion>
@@ -308,77 +354,116 @@ const Product = ({ product, fetchData }) => {
                     <Accordion.Item eventKey="0">
                       <Accordion.Header>Prices by city</Accordion.Header>
                       <Accordion.Body>
-                        <div className="d-flex justify-content-between">
-                          <span>West Palm Beach:</span>
-                          <span>
-                            {product?.price == 0
-                              ? "undefined price"
-                              : "$ " + product?.price}
-                          </span>
-                        </div>
-                        <hr></hr>
-                        <div className="d-flex justify-content-between">
-                          <span>Stuart:</span>
-                          <span>
-                            {product?.price2 == 0
-                              ? "undefined price"
-                              : "$ " + product?.price2}
-                          </span>
-                        </div>
-                        <hr></hr>
-                        <div className="d-flex justify-content-between">
-                          <span>Daytona Beach:</span>
-                          <span>
-                            {product?.price3 == 0
-                              ? "undefined price"
-                              : "$ " + product?.price3}
-                          </span>
-                        </div>
-                        <hr></hr>
-                        <div className="d-flex justify-content-between">
-                          <span>Jacksonville:</span>
-                          <span>
-                            {product?.price4 == 0
-                              ? "undefined price"
-                              : "$ " + product?.price4}
-                          </span>
-                        </div>
-                        <hr></hr>
-                        <div className="d-flex justify-content-between">
-                          <span>Houston:</span>
-                          <span>
-                            {product?.price5 == 0
-                              ? "undefined price"
-                              : "$ " + product?.price5}
-                          </span>
-                        </div>
-                        <hr></hr>
-                        <div className="d-flex justify-content-between">
-                          <span>Dallas:</span>
-                          <span>
-                            {product?.price6 == 0
-                              ? "undefined price"
-                              : "$ " + product?.price6}
-                          </span>
-                        </div>
-                        <hr></hr>
-                        <div className="d-flex justify-content-between">
-                          <span>Beaumont:</span>
-                          <span>
-                            {product?.price7 == 0
-                              ? "undefined price"
-                              : "$ " + product?.price7}
-                          </span>
-                        </div>
-                        <hr></hr>
-                        <div className="d-flex justify-content-between">
-                          <span>New Orleans:</span>
-                          <span>
-                            {product?.price8 == 0
-                              ? "undefined price"
-                              : "$ " + product?.price8}
-                          </span>
-                        </div>
+                        {product?.price == undefined || product?.price == 0 ? (
+                          ""
+                        ) : (
+                          <>
+                            <div className="d-flex justify-content-between">
+                              <span>West Palm Beach:</span>
+                              <span>
+                                ${product?.price}
+                              </span>
+                            </div>
+                            <hr></hr>
+                          </>
+                        )}
+
+                        {product?.price2 == undefined || product?.price2 == 0? (
+                          ""
+                        ) : (
+                          <>
+                            <div className="d-flex justify-content-between">
+                              <span>Stuart:</span>
+                              <span>
+                                ${product?.price2}
+                              </span>
+                            </div>
+                            <hr></hr>
+                          </>
+                        )}
+
+                        {product?.price3 == undefined || product?.price3 == 0 ?(
+                          ""
+                        ) : (
+                          <>
+                            <div className="d-flex justify-content-between">
+                              <span>Daytona Beach:</span>
+                              <span>
+                                ${product?.price3}
+                              </span>
+                            </div>
+                            <hr></hr>
+                          </>
+                        )}
+
+                        {product?.price4 == undefined || product?.price4 == 0 ? (
+                          ""
+                        ) : (
+                          <>
+                            <div className="d-flex justify-content-between">
+                              <span>Jacksonville:</span>
+                              <span>
+                                ${product?.price4}
+                              </span>
+                            </div>
+                            <hr></hr>
+                          </>
+                        )}
+
+                        {product?.price5 == undefined || product?.price5 == 0? (
+                          ""
+                        ) : (
+                          <>
+                            <div className="d-flex justify-content-between">
+                              <span>Houston:</span>
+                              <span>
+                                ${product?.price5}
+                              </span>
+                            </div>
+                            <hr></hr>
+                          </>
+                        )}
+
+                        {product?.price6 == undefined || product?.price6 == 0? (
+                          ""
+                        ) : (
+                          <>
+                            <div className="d-flex justify-content-between">
+                              <span>Dallas:</span>
+                              <span>
+                                ${product?.price6}
+                              </span>
+                            </div>
+                            <hr></hr>
+                          </>
+                        )}
+
+                        {product?.price7 == undefined || product?.price7 == 0? (
+                          ""
+                        ) : (
+                          <>
+                            <div className="d-flex justify-content-between">
+                              <span>Beaumont:</span>
+                              <span>
+                                ${product?.price7}
+                              </span>
+                            </div>
+                            <hr></hr>
+                          </>
+                        )}
+
+                        {product?.price8 == undefined || product?.price8 == 0? (
+                          ""
+                        ) : (
+                          <>
+                            <div className="d-flex justify-content-between">
+                              <span>New Orleans:</span>
+                              <span>
+                                ${product?.price8}
+                              </span>
+                            </div>
+                          </>
+                        )}
                       </Accordion.Body>
                     </Accordion.Item>
                   </Accordion>
@@ -389,17 +474,6 @@ const Product = ({ product, fetchData }) => {
                 <ButtonGroup aria-label="Basic example" className="card-butts">
                   <Button variant="primary fs-5" onClick={handleShow}>
                     <RiEditBoxLine className="mb-1 icon" />
-                  </Button>
-                  <Button variant="primary">
-                    <Form.Check
-                      className={`${
-                        product?.availability == true ? "fs-5" : ""
-                      }`}
-                      type={"checkbox"}
-                      id={`default-${product?.nameProducts}`}
-                      defaultChecked={product?.availability}
-                      onClick={() => HandleAvailability()}
-                    />
                   </Button>
                   <Button
                     variant="primary"

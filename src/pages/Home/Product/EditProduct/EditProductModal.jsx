@@ -10,7 +10,14 @@ import axios from "axios";
 import "./EditProductModal.css";
 import { UpdateProduct } from "../../../../core/service/HomeService";
 
-const EditProductModal = ({ show, handleClose, product, fetchData }) => {
+const EditProductModal = ({
+  show,
+  handleClose,
+  product,
+  fetchData,
+  setchangedValue,
+  changedValue,
+}) => {
   const initialFormData = {
     nameProducts: product?.nameProducts || "",
     imgProduct: product?.imgProduct || "",
@@ -43,24 +50,30 @@ const EditProductModal = ({ show, handleClose, product, fetchData }) => {
       confirmButtonText: "Yes, save it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const authToken = localStorage.getItem("token")
+        const authToken = localStorage.getItem("token");
         if (!authToken) {
-          console.error("No se encontró el token de autenticación")
-          return
+          console.error("No se encontró el token de autenticación");
+          return;
         }
-        
-        try {
-          await UpdateProduct("api/products/", authToken, product._id, formData)
 
-          await fetchData()
-          Swal.fire("Edited!", "Your product has been edited.", "success")
+        try {
+          await UpdateProduct(
+            "api/products/",
+            authToken,
+            product._id,
+            formData
+          );
+          setchangedValue(formData?.availability);
+          await fetchData();
+          product = formData
+          Swal.fire("Edited!", "Your product has been edited.", "success");
           handleClose();
         } catch (error) {
-          console.error("Error al editar el producto", error)
+          console.error("Error al editar el producto", error);
         }
       }
-    })
-  }
+    });
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -74,6 +87,11 @@ const EditProductModal = ({ show, handleClose, product, fetchData }) => {
       name === "measures"
     ) {
       newValue = !isNaN(value) ? parseInt(value, 10) : 0;
+    } else if (name === "category") {
+      const selectedCategory = categories.find(
+        (category) => category.filter === value
+      );
+      newValue = selectedCategory ? selectedCategory._id : "";
     } else {
       newValue = value;
     }
@@ -317,7 +335,10 @@ const EditProductModal = ({ show, handleClose, product, fetchData }) => {
               </Accordion.Item>
             </Accordion>
 
-            <Form.Group className="mb-3 mt-3" controlId="exampleForm.ControlInput1">
+            <Form.Group
+              className="mb-3 mt-3"
+              controlId="exampleForm.ControlInput1"
+            >
               <Form.Label style={{ color: "#007bff" }}>Quantity:</Form.Label>
               <Form.Control
                 type="number"
@@ -352,10 +373,9 @@ const EditProductModal = ({ show, handleClose, product, fetchData }) => {
               <Form.Label style={{ color: "#007bff" }}>Category:</Form.Label>
               <Form.Select
                 type="text"
-                value={formData?.category}
+                value={formData?.category.filter}
                 name="category"
                 onChange={handleChange}
-                autoFocus
                 required
               >
                 <option value="" disabled>
