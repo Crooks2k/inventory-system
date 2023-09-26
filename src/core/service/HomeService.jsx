@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const AllProducts = async (url, token) => {
-  return await axios.get("https://cugusacompany.onrender.com/" + url, {
+  return await axios.get("https://cugusainventory.onrender.com/" + url, {
     headers: {
       "x-access-token": token,
     },
@@ -10,7 +10,7 @@ export const AllProducts = async (url, token) => {
 
 export const ChangeAvailability = async (url, token, id, changedValue) => {
   return await axios.patch(
-    "https://cugusacompany.onrender.com/" + url + id,
+    "https://cugusainventory.onrender.com/" + url + id,
     changedValue,
     {
       headers: {
@@ -21,7 +21,7 @@ export const ChangeAvailability = async (url, token, id, changedValue) => {
 };
 
 export const DeleteProduct = async (url, token, id) => {
-  return await axios.delete("https://cugusacompany.onrender.com/" + url + id, {
+  return await axios.delete("https://cugusainventory.onrender.com/" + url + id, {
     headers: {
       "x-access-token": token,
     },
@@ -30,7 +30,7 @@ export const DeleteProduct = async (url, token, id) => {
 
 export const UpdateProduct = async (url, token, productId, data) => {
   return await axios.patch(
-    "https://cugusacompany.onrender.com/" + url + productId,
+    "https://cugusainventory.onrender.com/" + url + productId,
     data,
     {
       headers: {
@@ -41,7 +41,7 @@ export const UpdateProduct = async (url, token, productId, data) => {
 };
 
 export const GetCategories = async (url, token) => {
-  return await axios.get("https://cugusacompany.onrender.com/" + url, {
+  return await axios.get("https://cugusainventory.onrender.com//" + url, {
     headers: {
       "x-access-token": token,
     },
