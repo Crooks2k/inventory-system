@@ -168,7 +168,7 @@ const currentEmployees = employees.slice(indexOfFirstEmployee, indexOfLastEmploy
     Add New Employee
   </button>
 </div>
-                <Table responsive>
+                <Table responsive className="table-employees">
                   <thead>
                     <tr>
                       <th>Full Name</th>
@@ -188,7 +188,7 @@ const currentEmployees = employees.slice(indexOfFirstEmployee, indexOfLastEmploy
                             : "N/A"}
                         </td>
                         <td>
-                          <button
+                          <button className="trash-button"
                             onClick={() => handleDeleteUser(employee._id)}
                           >
                             <MdDelete className="trash-icon" />
