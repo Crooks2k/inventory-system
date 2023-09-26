@@ -144,6 +144,7 @@ function NewProduct() {
                     onChange={handleChange}
                     required
                     placeholder="Product name"
+                    maxLength={38}
                   />
                 </div>
 
@@ -187,6 +188,7 @@ function NewProduct() {
                     onChange={handleChange}
                     required
                     placeholder="Description"
+                    maxLength={70}
                   />
                 </div>
 
@@ -353,6 +355,7 @@ function NewProduct() {
                     onChange={handleChange}
                     required
                     placeholder="Product name"
+                    maxLength={38}
                   />
                 </div>
 
@@ -396,6 +399,7 @@ function NewProduct() {
                     onChange={handleChange}
                     required
                     placeholder="Description"
+                    maxLength={70}
                   />
                 </div>
 

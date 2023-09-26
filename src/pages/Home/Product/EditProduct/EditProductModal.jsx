@@ -80,26 +80,29 @@ const EditProductModal = ({
     let newValue;
 
     if (name === "availability") {
-      newValue = value === "true";
+        newValue = value === "true";
     } else if (
-      name === "quantity" ||
-      name.startsWith("price") ||
-      name === "measures"
+        name === "quantity" ||
+        name.startsWith("price") ||
+        name === "measures"
     ) {
-      
-      if (/^-?\d*\.?\d*$/.test(value)) {
-        newValue = value;
-      } else {
-        
-        newValue = formData[name];
-      }
+        if (/^-?\d*\.?\d*$/.test(value)) {
+            newValue = value;
+        } else {
+            newValue = formData[name];
+        }
+    } else if (name === "category") {
+
+        const selectedCategory = categories.find(
+            (category) => category.filter === value
+        );
+        newValue = selectedCategory ? selectedCategory._id : "";
     } else {
-      newValue = value;
+        newValue = value;
     }
 
     setFormData({ ...formData, [name]: newValue });
-  };
-
+};
   useEffect(() => {
     const authToken = localStorage.getItem("token");
 
