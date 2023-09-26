@@ -11,14 +11,14 @@ function NewProduct() {
     imgProduct: "",
     measures: 0,
     description: "",
-    price: 0,
-    price2: 0,
-    price3: 0,
-    price4: 0,
-    price5: 0,
-    price6: 0,
-    price7: 0,
-    price8: 0,
+    price: "0",
+    price2: "0",
+    price3: "0",
+    price4: "0",
+    price5: "0",
+    price6: "0",
+    price7: "0",
+    price8: "0",
     availability: true,
     category: "",
     quantity: 0,
@@ -60,7 +60,13 @@ function NewProduct() {
       name.startsWith("price") ||
       name === "measures"
     ) {
-      newValue = !isNaN(value) ? parseInt(value, 10) : 0;
+      
+      if (/^-?\d*\.?\d*$/.test(value)) {
+        newValue = value;
+      } else {
+        
+        newValue = formData[name];
+      }
     } else {
       newValue = value;
     }
@@ -187,7 +193,7 @@ function NewProduct() {
                 <div className="campo">
                   <label htmlFor="price">Price West Palm Beach:</label>
                   <input
-                    type="number"
+                    type="text"
                     id="price"
                     name="price"
                     value={formData.price}
@@ -198,7 +204,7 @@ function NewProduct() {
                 <div className="campo">
                   <label htmlFor="price2">Price Stuart</label>
                   <input
-                    type="number"
+                    type="text"
                     id="price2"
                     name="price2"
                     value={formData.price2}
@@ -209,7 +215,7 @@ function NewProduct() {
                 <div className="campo">
                   <label htmlFor="price3">Price Daytona Beach</label>
                   <input
-                    type="number"
+                    type="text"
                     id="price3"
                     name="price3"
                     value={formData.price3}
@@ -220,7 +226,7 @@ function NewProduct() {
                 <div className="campo">
                   <label htmlFor="price4">Price Jacksonville</label>
                   <input
-                    type="number"
+                    type="text"
                     id="price4"
                     name="price4"
                     value={formData.price4}
@@ -231,7 +237,7 @@ function NewProduct() {
                 <div className="campo">
                   <label htmlFor="price5">Price Houston</label>
                   <input
-                    type="number"
+                    type="text"
                     id="price5"
                     name="price5"
                     value={formData.price5}
@@ -242,7 +248,7 @@ function NewProduct() {
                 <div className="campo">
                   <label htmlFor="price6">Price Dallas</label>
                   <input
-                    type="number"
+                    type="text"
                     id="price6"
                     name="price6"
                     value={formData.price6}
@@ -264,7 +270,7 @@ function NewProduct() {
                 <div className="campo">
                   <label htmlFor="price8">Price New Orleans</label>
                   <input
-                    type="number"
+                    type="text"
                     id="price8"
                     name="price8"
                     value={formData.price8}
@@ -347,7 +353,6 @@ function NewProduct() {
                     onChange={handleChange}
                     required
                     placeholder="Product name"
-                    maxLength={50}
                   />
                 </div>
 
@@ -391,14 +396,13 @@ function NewProduct() {
                     onChange={handleChange}
                     required
                     placeholder="Description"
-                    maxLength={70}
                   />
                 </div>
 
                 <div className="campo">
                   <label htmlFor="price">Price West Palm Beach:</label>
                   <input
-                    type="number"
+                    type="text"
                     id="price"
                     name="price"
                     value={formData.price}
@@ -409,7 +413,7 @@ function NewProduct() {
                 <div className="campo">
                   <label htmlFor="price2">Price Stuart</label>
                   <input
-                    type="number"
+                    type="text"
                     id="price2"
                     name="price2"
                     value={formData.price2}
@@ -420,7 +424,7 @@ function NewProduct() {
                 <div className="campo">
                   <label htmlFor="price3">Price Daytona Beach</label>
                   <input
-                    type="number"
+                    type="text"
                     id="price3"
                     name="price3"
                     value={formData.price3}
@@ -431,7 +435,7 @@ function NewProduct() {
                 <div className="campo">
                   <label htmlFor="price4">Price Jacksonville</label>
                   <input
-                    type="number"
+                    type="text"
                     id="price4"
                     name="price4"
                     value={formData.price4}
@@ -442,7 +446,7 @@ function NewProduct() {
                 <div className="campo">
                   <label htmlFor="price5">Price Houston</label>
                   <input
-                    type="number"
+                    type="text"
                     id="price5"
                     name="price5"
                     value={formData.price5}
@@ -453,7 +457,7 @@ function NewProduct() {
                 <div className="campo">
                   <label htmlFor="price6">Price Dallas</label>
                   <input
-                    type="number"
+                    type="text"
                     id="price6"
                     name="price6"
                     value={formData.price6}
@@ -464,7 +468,7 @@ function NewProduct() {
                 <div className="campo">
                   <label htmlFor="price7">Price Beaumont</label>
                   <input
-                    type="number"
+                    type="text"
                     id="price7"
                     name="price7"
                     value={formData.price7}
@@ -475,7 +479,7 @@ function NewProduct() {
                 <div className="campo">
                   <label htmlFor="price8">Price New Orleans</label>
                   <input
-                    type="number"
+                    type="text"
                     id="price8"
                     name="price8"
                     value={formData.price8}
