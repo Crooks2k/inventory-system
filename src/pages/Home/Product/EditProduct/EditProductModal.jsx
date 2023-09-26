@@ -143,6 +143,7 @@ const EditProductModal = ({
                 name="nameProducts"
                 autoFocus
                 required
+                maxLength={38}
               />
             </Form.Group>
 
@@ -188,6 +189,7 @@ const EditProductModal = ({
                 name="description"
                 required
                 autoFocus
+                maxLength={70}
               />
             </Form.Group>
 
