@@ -1,0 +1,26 @@
+
+.table-margin {
+    margin: 10px; 
+  }
+
+.btn-employee {
+  margin-right: 30px;
+  margin-top: 10px;
+}
+.pagination {
+  margin-left: 20px;
+}
+
+.title-employees {
+  width: 100%;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.trash-icon {
+  color: red;
+}
+
+.h2-employees{
+  margin-top: 14px;
+}

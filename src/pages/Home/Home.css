@@ -1,0 +1,100 @@
+.inv-stats-main{
+   margin-top: -5.5rem;
+}
+.inv-stats, .home-bar-m, .product-list{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.title{
+    color: var(--title)
+}
+.inv-stats p:nth-child(2){
+    color: var(--focus_subtitle);
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: -0.2rem;
+}
+.inv-stats p:nth-child(3){
+    font-weight: 400;
+}
+.search::placeholder{
+    color: var(--title);
+    font-weight: 600;
+}
+.search{
+    border: none;
+    font-size: 18px;
+    width: 200px;
+    background-color: transparent!important;
+    border-radius: 10px;
+    padding-left: 2rem;
+}
+.search-icon{
+    color: var(--title);
+    font-size: 21px;
+    margin-right: -1.8rem;
+    margin-bottom: 0.3rem;
+    margin-left: 0.3rem;
+}
+.search:focus{
+    outline: 2px solid #0663e6;
+    color: var(--focus_subtitle);
+}
+.search:placeholder-shown{
+    border: 1px solid var(--title);
+}
+@media(max-width: 360px){
+    .movil-text{
+        font-size: 15px;
+    }
+}
+.filter-icon{
+    font-size: 35px!important;
+    color: var(--title)
+}
+.filter-togler{
+    background-color: transparent!important;
+    height: 45px;
+    width: 75px;
+    margin: 0!important;
+    padding: 0!important;
+    border: none!important;
+}
+.paginationBttns {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin-bottom: -0.7rem!important;
+  }
+  
+  .paginationBttns li {
+    margin: 0 10px;
+    margin-top: 0.3rem!important;
+    margin: 0 !important;
+    margin-right: 10px!important;
+  }
+  .paginationBttns li a{
+    color: var(--title);
+    text-decoration: none;
+    font-weight: 700;
+  }
+  
+  .paginate-butts {
+    background-color: #ffffff;
+    color: var(--title);
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-bottom: 0.3rem!important;
+  }
+  
+  .active_pagination {
+    margin: 0 !important;
+    text-align: center;
+    color: var(--title);
+    height: 22px;
+    border-bottom: 2px solid #0663e6;
+  }  
