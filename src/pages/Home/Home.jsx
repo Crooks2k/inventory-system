@@ -20,21 +20,13 @@ const Home = () => {
   const [allProducts, setallProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(0);
 
   const [categories, setCategories] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
 
-  const handleCategorySelect = (categoryId) => {
-    if (selectedCategories.includes(categoryId)) {
-      setSelectedCategories((prevSelected) =>
-        prevSelected.filter((id) => id !== categoryId)
-      );
-    } else {
-      setSelectedCategories((prevSelected) => [...prevSelected, categoryId]);
-    }
-  };
-
   const navigate = useNavigate();
+  const productPerPage = 3;
 
   const [AvailableProducts, setAvailableProducts] = useState(0);
 
@@ -54,7 +46,7 @@ const Home = () => {
     try {
       const response = await AllProducts("api/products/", authToken);
       const productData = response.data;
-      setallProducts(productData);
+      setallProducts(productData.reverse());
 
       const categoriesResponse = await GetCategories("api/category", authToken);
       const categoriesData = categoriesResponse.data;
@@ -88,15 +80,24 @@ const Home = () => {
       return selectedCategories.includes(product.category.filter);
     });
 
+    // Actualizar la página actual cuando se aplica un filtro
+    setCurrentPage(0);
+
     setFilteredProducts(filteredByCategory);
   }, [allProducts, searchTerm, selectedCategories]);
 
+  const handleCategorySelect = (categoryId) => {
+    if (selectedCategories.includes(categoryId)) {
+      setSelectedCategories((prevSelected) =>
+        prevSelected.filter((id) => id !== categoryId)
+      );
+    } else {
+      setSelectedCategories((prevSelected) => [...prevSelected, categoryId]);
+    }
+  };
+
   // Pagination
-  const [pageNumber, setPageNumber] = useState(0);
-
-  const productPerPage = 3;
-
-  const visitedPage = pageNumber * productPerPage;
+  const visitedPage = currentPage * productPerPage;
 
   const displayPage = filteredProducts.slice(
     visitedPage,
@@ -106,7 +107,7 @@ const Home = () => {
   const pageCount = Math.ceil(filteredProducts.length / productPerPage);
 
   const changePage = ({ selected }) => {
-    setPageNumber(selected);
+    setCurrentPage(selected);
   };
 
   return (
@@ -369,7 +370,7 @@ const Home = () => {
           {displayPage.map((product) => {
             return (
               <div className="" key={product?._id}>
-                <Product product={product} fetchData={fetchData} />
+                <Product product={product} fetchData={fetchData}/>
               </div>
             );
           })}
