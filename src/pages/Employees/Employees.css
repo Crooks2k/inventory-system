@@ -4,7 +4,7 @@
   }
 
 .btn-employee {
-  margin-right: 30px;
+  margin-right: 35px;
   margin-top: 10px;
 }
 .pagination {
@@ -21,8 +21,25 @@
   color: red;
 }
 
+.trash-button {
+  background-color: white;
+  border: none;
+}
+
+.table-employees {
+  margin: 35px;
+  border-collapse: collapse;
+}
+
+.table-employees th,
+.table-employees td {
+  text-align: center;
+  border-bottom: 20px solid #ffffff;
+}
+
 .h2-employees{
-  margin-top: 14px;
+  font-size: 40px;
+  color: #0663e6;
 }
 
 .paginationBttns {
