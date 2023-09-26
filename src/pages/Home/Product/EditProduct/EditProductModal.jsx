@@ -23,14 +23,14 @@ const EditProductModal = ({
     imgProduct: product?.imgProduct || "",
     measures: product?.measures || "",
     description: product?.description || "",
-    price: product?.price || 0,
-    price2: product?.price2 || 0,
-    price3: product?.price3 || 0,
-    price4: product?.price4 || 0,
-    price5: product?.price5 || 0,
-    price6: product?.price6 || 0,
-    price7: product?.price7 || 0,
-    price8: product?.price8 || 0,
+    price: product?.price || "0",
+    price2: product?.price2 || "0",
+    price3: product?.price3 || "0",
+    price4: product?.price4 || "0",
+    price5: product?.price5 || "0",
+    price6: product?.price6 || "0",
+    price7: product?.price7 || "0",
+    price8: product?.price8 || "0",
     availability: product?.availability || false,
     category: product?.category || "",
     quantity: product?.quantity || 0,
@@ -86,12 +86,13 @@ const EditProductModal = ({
       name.startsWith("price") ||
       name === "measures"
     ) {
-      newValue = !isNaN(value) ? parseInt(value, 10) : 0;
-    } else if (name === "category") {
-      const selectedCategory = categories.find(
-        (category) => category.filter === value
-      );
-      newValue = selectedCategory ? selectedCategory._id : "";
+      
+      if (/^-?\d*\.?\d*$/.test(value)) {
+        newValue = value;
+      } else {
+        
+        newValue = formData[name];
+      }
     } else {
       newValue = value;
     }
@@ -143,6 +144,7 @@ const EditProductModal = ({
                 name="nameProducts"
                 autoFocus
                 required
+                maxLength={38}
               />
             </Form.Group>
 
@@ -188,6 +190,7 @@ const EditProductModal = ({
                 name="description"
                 required
                 autoFocus
+                maxLength={70}
               />
             </Form.Group>
 
@@ -211,7 +214,7 @@ const EditProductModal = ({
                       Price West Palm Beach:
                     </Form.Label>
                     <Form.Control
-                      type="number"
+                      type="text"
                       onChange={handleChange}
                       value={formData?.price}
                       name="price"
@@ -228,7 +231,7 @@ const EditProductModal = ({
                       Price Stuart:
                     </Form.Label>
                     <Form.Control
-                      type="number"
+                      type="text"
                       onChange={handleChange}
                       value={formData?.price2}
                       name="price2"
@@ -244,7 +247,7 @@ const EditProductModal = ({
                       Price Daytona Beach:
                     </Form.Label>
                     <Form.Control
-                      type="number"
+                      type="text"
                       onChange={handleChange}
                       value={formData?.price3}
                       name="price3"
@@ -260,7 +263,7 @@ const EditProductModal = ({
                       Price Jacksonville:
                     </Form.Label>
                     <Form.Control
-                      type="number"
+                      type="text"
                       onChange={handleChange}
                       value={formData?.price4}
                       name="price4"
@@ -276,7 +279,7 @@ const EditProductModal = ({
                       Price Houston:
                     </Form.Label>
                     <Form.Control
-                      type="number"
+                      type="text"
                       onChange={handleChange}
                       value={formData?.price5}
                       name="price5"
@@ -292,7 +295,7 @@ const EditProductModal = ({
                       Price Dallas:
                     </Form.Label>
                     <Form.Control
-                      type="number"
+                      type="text"
                       onChange={handleChange}
                       value={formData?.price6}
                       name="price6"
@@ -308,7 +311,7 @@ const EditProductModal = ({
                       Price Beaumon:
                     </Form.Label>
                     <Form.Control
-                      type="number"
+                      type="text"
                       onChange={handleChange}
                       value={formData?.price7}
                       name="price7"
@@ -324,7 +327,7 @@ const EditProductModal = ({
                       Price New Orleans:
                     </Form.Label>
                     <Form.Control
-                      type="number"
+                      type="text"
                       onChange={handleChange}
                       value={formData?.price8}
                       name="price8"

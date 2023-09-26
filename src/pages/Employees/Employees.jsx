@@ -151,7 +151,7 @@ const Employees = () => {
             {role === "admin" ? (
               <>
               <div className="title-employees">
-              <h2 className="h2-employees">Lista de Empleados</h2>
+              <h2 className="h2-employees">Employees</h2>
               </div>
                 
                 <div className="d-flex justify-content-end mb-3">
